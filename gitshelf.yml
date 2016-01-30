@@ -1,0 +1,5 @@
+books:
+  - book: "srv/formulas/java"
+    git: "https://github.com/corux/java-formula.git"
+  - book: "srv/salt/java"
+    link: "../formulas/java/java"

@@ -1,0 +1,8 @@
+atlassian-confluence:
+  version: 5.9.3
+  dir: /opt/atlassian/confluence
+  ajp_port: 8009
+  user: confluence
+  group: confluence
+  crowdSSO: False
+  catalina_opts: -Xms1536m -Xmx1536m -XX:MaxPermSize=256m -XX:MaxMetaspaceSize=512m

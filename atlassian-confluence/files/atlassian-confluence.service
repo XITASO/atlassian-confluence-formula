@@ -1,0 +1,13 @@
+[Unit]
+Description=Atlassian Confluence
+Wants=network-online.target
+
+[Service]
+Type=forking
+PIDFile={{ config.pid }}
+User={{ config.user }}
+ExecStart={{ config.dirs.scripts }}/start.sh
+ExecStop={{ config.dirs.scripts }}/stop.sh
+
+[Install]
+WantedBy=multi-user.target

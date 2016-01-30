@@ -1,0 +1,4 @@
+.kitchen/
+.venv/
+srv/
+Gemfile.lock

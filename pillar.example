@@ -1,0 +1,8 @@
+atlassian-confluence:
+  ajp_port: 8009
+  http_port: 8090
+  crowdSSO: True
+  crowd:
+    application.name: Example Confluence
+    application.password: SecretPassword
+    crowd.base.url: http://crowd.example.com/crowd/

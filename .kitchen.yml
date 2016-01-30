@@ -1,0 +1,29 @@
+driver:
+  name: docker
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: corux/centos7-salt
+      cap_add:
+        - SYS_ADMIN
+      run_command: /usr/sbin/init
+
+provisioner:
+  name: salt_solo
+  formula: atlassian-confluence
+  vendor_path: srv/salt
+  pillars-from-files:
+    atlassian-confluence.sls: pillar.example
+  pillars:
+    top.sls:
+      base:
+        "*":
+          - atlassian-confluence
+  state_top:
+    base:
+      "*":
+        - atlassian-confluence
+
+suites:
+  - name: default
