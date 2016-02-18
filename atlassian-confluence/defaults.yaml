@@ -6,3 +6,13 @@ atlassian-confluence:
   group: confluence
   crowdSSO: False
   catalina_opts: -Xms1536m -Xmx1536m -XX:MaxMetaspaceSize=512m
+  crowd:
+    application.name: username
+    application.password: password
+    application.login.url: "http://localhost:8095/crowd/console/"
+    crowd.server.url: "http://localhost:8095/crowd/services/"
+    crowd.base.url: "http://localhost:8095/crowd/"
+    session.isauthenticated: session.isauthenticated
+    session.tokenkey: session.tokenkey
+    session.validationinterval: 2
+    session.lastvalidation: session.lastvalidation

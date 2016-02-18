@@ -140,19 +140,19 @@ confluence-script-{{ file }}:
       - service: confluence
 {% endfor %}
 
-{% for key, val in confluence.get('crowd', {}).iteritems() %}
-confluence-crowd-{{ key }}:
-  file.replace:
+{% if confluence.get('crowd') %}
+confluence-crowd-properties:
+  file.managed:
     - name: {{ confluence.dirs.install }}/confluence/WEB-INF/classes/crowd.properties
-    - pattern: ^#?\s*{{ key|replace(".", "\\.") }}[\s=].*
-    - repl: "{{ key }} = {{ val|replace(":", "\\\\:") }}"
-    - count: 1
-    - append_if_not_found: True
     - require:
       - file: confluence-install
     - watch_in:
       - service: confluence
-{% endfor %}
+    - contents: |
+{%- for key, val in confluence.crowd.items() %}
+        {{ key }}: {{ val }}
+{%- endfor %}
+{% endif %}
 
 {% for chmoddir in ['bin', 'work', 'temp', 'logs'] %}
 confluence-permission-{{ chmoddir }}:
