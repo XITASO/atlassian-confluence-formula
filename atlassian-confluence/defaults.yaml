@@ -5,4 +5,4 @@ atlassian-confluence:
   user: confluence
   group: confluence
   crowdSSO: False
-  catalina_opts: -Xms1536m -Xmx1536m -XX:MaxPermSize=256m -XX:MaxMetaspaceSize=512m
+  catalina_opts: -Xms1536m -Xmx1536m -XX:MaxMetaspaceSize=512m
