@@ -1,5 +1,5 @@
 atlassian-confluence:
-  version: 5.9.5
+  version: 5.9.6
   dir: /opt/atlassian/confluence
   ajp_port: 8009
   user: confluence
