@@ -5,8 +5,7 @@ platforms:
   - name: centos-7
     driver_config:
       image: corux/centos7-salt
-      cap_add:
-        - SYS_ADMIN
+      privileged: True
       run_command: /usr/sbin/init
 
 provisioner:
