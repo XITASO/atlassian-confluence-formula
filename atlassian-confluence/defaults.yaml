@@ -1,17 +1,17 @@
 atlassian-confluence:
-  version: 5.9.10
+  version: 5.9.11
   dir: /opt/atlassian/confluence
   ajp_port: 8009
   user: confluence
   group: confluence
-  crowdSSO: False
+  crowdSSO: false
   catalina_opts: -Xms1536m -Xmx1536m -XX:MaxMetaspaceSize=512m
   crowd:
     application.name: username
     application.password: password
-    application.login.url: "http://localhost:8095/crowd/console/"
-    crowd.server.url: "http://localhost:8095/crowd/services/"
-    crowd.base.url: "http://localhost:8095/crowd/"
+    application.login.url: http://localhost:8095/crowd/console/
+    crowd.server.url: http://localhost:8095/crowd/services/
+    crowd.base.url: http://localhost:8095/crowd/
     session.isauthenticated: session.isauthenticated
     session.tokenkey: session.tokenkey
     session.validationinterval: 2
