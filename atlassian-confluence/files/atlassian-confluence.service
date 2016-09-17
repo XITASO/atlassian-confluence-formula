@@ -8,6 +8,8 @@ PIDFile={{ config.pid }}
 User={{ config.user }}
 ExecStart={{ config.dirs.scripts }}/start.sh
 ExecStop={{ config.dirs.scripts }}/stop.sh
+Restart=on-failure
+RestartSec=10s
 
 [Install]
 WantedBy=multi-user.target
