@@ -31,7 +31,7 @@ confluence:
     - name: atlassian-confluence
     - enable: True
     - require:
-      - file: confluence
+      - user: confluence
 
 confluence-graceful-down:
   service.dead:
@@ -54,11 +54,9 @@ confluence-install:
   archive.extracted:
     - name: {{ confluence.dirs.extract }}
     - source: {{ confluence.source }}
-    - archive_format: tar
-    - tar_options: z
     - if_missing: {{ confluence.dirs.current_install }}
-    - user: root
-    - group: root
+    - list_options: gzip -d -c
+    - options: z
     - keep: True
     - require:
       - file: confluence-extractdir
@@ -136,6 +134,7 @@ confluence-script-{{ file }}:
         config: {{ confluence }}
     - require:
       - file: confluence-scriptdir
+      - user: confluence
     - watch_in:
       - service: confluence
 {% endfor %}
