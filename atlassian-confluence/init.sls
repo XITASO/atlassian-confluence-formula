@@ -3,6 +3,11 @@
 include:
   - java
 
+confluence-dependencies:
+  pkg.installed:
+    - pkgs:
+      - libxslt
+
 confluence:
   file.managed:
     - name: /etc/systemd/system/atlassian-confluence.service
@@ -46,6 +51,8 @@ confluence-download:
   cmd.run:
     - name: "curl -L --silent '{{ confluence.url }}' > '{{ confluence.source }}'"
     - unless: "test -f '{{ confluence.source }}'"
+    - require:
+      - file: confluence-tempdir
 {% endif %}
 
 confluence-install:
@@ -54,7 +61,6 @@ confluence-install:
     - source: {{ confluence.source }}
     - if_missing: {{ confluence.dirs.current_install }}
     - list_options: gzip -d -c
-    - options: z
     - keep: True
     - require:
       - file: confluence-extractdir
