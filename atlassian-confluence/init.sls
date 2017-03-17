@@ -56,12 +56,10 @@ confluence-download:
 {% endif %}
 
 confluence-install:
-  archive.extracted:
-    - name: {{ confluence.dirs.extract }}
-    - source: {{ confluence.source }}
-    - if_missing: {{ confluence.dirs.current_install }}
-    - list_options: gzip -d -c
-    - keep: True
+  cmd.run:
+    - name: "tar -xf '{{ confluence.source }}'"
+    - cwd: {{ confluence.dirs.extract }}
+    - unless: "test -e '{{ confluence.dirs.current_install }}'"
     - require:
       - file: confluence-extractdir
       - cmd: confluence-download
@@ -70,7 +68,7 @@ confluence-install:
     - name: {{ confluence.dirs.install }}
     - target: {{ confluence.dirs.current_install }}
     - require:
-      - archive: confluence-install
+      - cmd: confluence-install
     - watch_in:
       - service: confluence
 
@@ -83,7 +81,7 @@ confluence-server-xsl:
       - file: confluence-install
 
   cmd.run:
-    - name: 'xsltproc --stringparam pHttpPort "{{ confluence.get('http_port', '') }}" --stringparam pHttpScheme "{{ confluence.get('http_scheme', '') }}" --stringparam pHttpProxyName "{{ confluence.get('http_proxyName', '') }}" --stringparam pHttpProxyPort "{{ confluence.get('http_proxyPort', '') }}" --stringparam pAjpPort "{{ confluence.get('ajp_port', '') }}" -o "{{ confluence.dirs.temp }}/server.xml" "{{ confluence.dirs.temp }}/server.xsl server.xml"'
+    - name: 'xsltproc --stringparam pHttpPort "{{ confluence.get('http_port', '') }}" --stringparam pHttpScheme "{{ confluence.get('http_scheme', '') }}" --stringparam pHttpProxyName "{{ confluence.get('http_proxyName', '') }}" --stringparam pHttpProxyPort "{{ confluence.get('http_proxyPort', '') }}" --stringparam pAjpPort "{{ confluence.get('ajp_port', '') }}" -o "{{ confluence.dirs.temp }}/server.xml" "{{ confluence.dirs.temp }}/server.xsl" server.xml'
     - cwd: {{ confluence.dirs.install }}/conf
     - require:
       - file: confluence-server-xsl
