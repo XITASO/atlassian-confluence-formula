@@ -69,15 +69,27 @@ confluence-install:
     - watch_in:
       - service: confluence
 
-confluence-serverxml:
+confluence-server-xsl:
   file.managed:
-    - name: {{ confluence.dirs.install }}/conf/server.xml
-    - source: salt://atlassian-confluence/files/server.xml
+    - name: {{ confluence.dirs.temp }}/server.xsl
+    - source: salt://atlassian-confluence/files/server.xsl
     - template: jinja
-    - defaults:
-        config: {{ confluence }}
     - require:
       - file: confluence-install
+
+  cmd.run:
+    - name: 'xsltproc --stringparam pHttpPort "{{ confluence.get('http_port', '') }}" --stringparam pHttpScheme "{{ confluence.get('http_scheme', '') }}" --stringparam pHttpProxyName "{{ confluence.get('http_proxyName', '') }}" --stringparam pHttpProxyPort "{{ confluence.get('http_proxyPort', '') }}" --stringparam pAjpPort "{{ confluence.get('ajp_port', '') }}" -o "{{ confluence.dirs.temp }}/server.xml" "{{ confluence.dirs.temp }}/server.xsl server.xml"'
+    - cwd: {{ confluence.dirs.install }}/conf
+    - require:
+      - file: confluence-server-xsl
+      - file: confluence-tempdir
+
+confluence-server-xml:
+  file.managed:
+    - name: {{ confluence.dirs.install }}/conf/server.xml
+    - source: {{ confluence.dirs.temp }}/server.xml
+    - require:
+      - cmd: confluence-server-xsl
     - watch_in:
       - service: confluence
 
@@ -104,6 +116,12 @@ confluence-home:
 confluence-extractdir:
   file.directory:
     - name: {{ confluence.dirs.extract }}
+    - use:
+      - file: confluence-dir
+
+confluence-tempdir:
+  file.directory:
+    - name: {{ confluence.dirs.temp }}
     - use:
       - file: confluence-dir
 
