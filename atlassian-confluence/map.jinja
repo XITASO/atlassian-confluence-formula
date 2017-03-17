@@ -3,7 +3,7 @@
 {% from 'java/map.jinja' import java with context %}
 
 {% do confluence.update({
-  'source': confluence.get('source', '/tmp/atlassian-confluence-' ~ confluence.version ~ '.tar.gz'),
+  'source': confluence.get('source', confluence.dir ~ '/temp/atlassian-confluence-' ~ confluence.version ~ '.tar.gz'),
   'download': confluence.get('download') or not confluence.get('source'),
   'url': confluence.get('url', 'https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-' + confluence.version + '.tar.gz'),
   'pid': confluence.dir + '/home/confluence.pid',

@@ -46,8 +46,6 @@ confluence-download:
   cmd.run:
     - name: "curl -L --silent '{{ confluence.url }}' > '{{ confluence.source }}'"
     - unless: "test -f '{{ confluence.source }}'"
-    - prereq:
-      - archive: confluence-install
 {% endif %}
 
 confluence-install:
@@ -60,6 +58,7 @@ confluence-install:
     - keep: True
     - require:
       - file: confluence-extractdir
+      - cmd: confluence-download
 
   file.symlink:
     - name: {{ confluence.dirs.install }}
