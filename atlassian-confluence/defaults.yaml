@@ -1,5 +1,5 @@
 atlassian-confluence:
-  version: 6.8.2
+  version: 6.9.0
   dir: /opt/atlassian/confluence
   user: confluence
   group: confluence
