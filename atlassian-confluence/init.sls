@@ -14,7 +14,7 @@ confluence:
     - source: salt://atlassian-confluence/files/atlassian-confluence.service
     - template: jinja
     - defaults:
-        config: {{ confluence }}
+        config: {{ confluence|json }}
 
   module.wait:
     - name: service.systemctl_reload
@@ -152,7 +152,7 @@ confluence-script-{{ file }}:
     - mode: 755
     - template: jinja
     - defaults:
-        config: {{ confluence }}
+        config: {{ confluence|json }}
     - require:
       - file: confluence-scriptdir
       - user: confluence
@@ -208,3 +208,4 @@ confluence-enable-ConfluenceCrowdSSOAuthenticator:
         {% if confluence.crowdSSO %}\1\2{% else %}\1<!-- \2 -->{% endif %}
     - watch_in:
       - service: confluence
+
