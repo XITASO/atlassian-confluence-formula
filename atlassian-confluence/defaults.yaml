@@ -1,17 +1,17 @@
 atlassian-confluence:
-  version: 6.15.1
-  dir: /opt/atlassian/confluence
-  user: confluence
-  group: confluence
-  crowdSSO: false
   catalina_opts: -Xms1536m -Xmx1536m -XX:MaxMetaspaceSize=512m
   crowd:
+    application.login.url: http://localhost:8095/crowd/console/
     application.name: username
     application.password: password
-    application.login.url: http://localhost:8095/crowd/console/
-    crowd.server.url: http://localhost:8095/crowd/services/
     crowd.base.url: http://localhost:8095/crowd/
+    crowd.server.url: http://localhost:8095/crowd/services/
     session.isauthenticated: session.isauthenticated
+    session.lastvalidation: session.lastvalidation
     session.tokenkey: session.tokenkey
     session.validationinterval: 2
-    session.lastvalidation: session.lastvalidation
+  crowdSSO: false
+  dir: /opt/atlassian/confluence
+  group: confluence
+  user: confluence
+  version: 6.15.2
