@@ -78,7 +78,7 @@ confluence-server-xsl:
     - cwd: {{ confluence.dirs.install }}/conf
     - require:
       - file: confluence-server-xsl
-      - file: confluence-tempdir
+      - file: confluence-install
 
 confluence-server-xml:
   file.managed:
