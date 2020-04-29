@@ -71,7 +71,7 @@ confluence-server-xsl:
     - source: salt://atlassian-confluence/files/server.xsl
     - template: jinja
     - require:
-      - file: confluence-install
+      - file: confluence-tempdir
 
   cmd.run:
     - name: 'xsltproc --stringparam pHttpPort "{{ confluence.get('http_port', '') }}" --stringparam pHttpScheme "{{ confluence.get('http_scheme', '') }}" --stringparam pHttpProxyName "{{ confluence.get('http_proxyName', '') }}" --stringparam pHttpProxyPort "{{ confluence.get('http_proxyPort', '') }}" --stringparam pAjpPort "{{ confluence.get('ajp_port', '') }}" -o "{{ confluence.dirs.temp }}/server.xml" "{{ confluence.dirs.temp }}/server.xsl" server.xml'
