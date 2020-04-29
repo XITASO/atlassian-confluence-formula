@@ -46,29 +46,22 @@ confluence-graceful-down:
     - prereq:
       - file: confluence-install
 
-{% if confluence.download %}
-confluence-download:
-  cmd.run:
-    - name: "curl -L --silent '{{ confluence.url }}' > '{{ confluence.source }}'"
-    - unless: "test -f '{{ confluence.source }}'"
-    - require:
-      - file: confluence-tempdir
-{% endif %}
-
 confluence-install:
-  cmd.run:
-    - name: "tar -xf '{{ confluence.source }}'"
-    - cwd: {{ confluence.dirs.extract }}
-    - unless: "test -e '{{ confluence.dirs.current_install }}'"
+  archive.extracted:
+    - name: {{ confluence.dirs.extract }}
+    - source: {{ confluence.url }}
+    - if_missing: {{ confluence.dirs.current_install }}
+    - skip_verify: True
+    - options: z
+    - keep: True
     - require:
       - file: confluence-extractdir
-      - cmd: confluence-download
 
   file.symlink:
     - name: {{ confluence.dirs.install }}
     - target: {{ confluence.dirs.current_install }}
     - require:
-      - cmd: confluence-install
+      - archive: confluence-install
     - watch_in:
       - service: confluence
 
