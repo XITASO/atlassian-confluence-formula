@@ -74,7 +74,14 @@ confluence-server-xsl:
       - file: confluence-tempdir
 
   cmd.run:
-    - name: 'xsltproc --stringparam pHttpPort "{{ confluence.get('http_port', '') }}" --stringparam pHttpScheme "{{ confluence.get('http_scheme', '') }}" --stringparam pHttpProxyName "{{ confluence.get('http_proxyName', '') }}" --stringparam pHttpProxyPort "{{ confluence.get('http_proxyPort', '') }}" --stringparam pAjpPort "{{ confluence.get('ajp_port', '') }}" -o "{{ confluence.dirs.temp }}/server.xml" "{{ confluence.dirs.temp }}/server.xsl" server.xml'
+    - name: |
+        xsltproc \
+          --stringparam pHttpPort "{{ confluence.get('http_port', '') }}" \
+          --stringparam pHttpScheme "{{ confluence.get('http_scheme', '') }}" \
+          --stringparam pHttpProxyName "{{ confluence.get('http_proxyName', '') }}" \
+          --stringparam pHttpProxyPort "{{ confluence.get('http_proxyPort', '') }}" \
+          --stringparam pAjpPort "{{ confluence.get('ajp_port', '') }}" \
+          -o "{{ confluence.dirs.temp }}/server.xml" "{{ confluence.dirs.temp }}/server.xsl" server.xml
     - cwd: {{ confluence.dirs.install }}/conf
     - require:
       - file: confluence-server-xsl
