@@ -50,8 +50,8 @@ confluence-install:
   archive.extracted:
     - name: {{ confluence.dirs.extract }}
     - source: {{ confluence.url }}
+    - source_hash: {{ confluence.url_hash }}
     - if_missing: {{ confluence.dirs.current_install }}
-    - skip_verify: True
     - options: z
     - keep: True
     - require:
