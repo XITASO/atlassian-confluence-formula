@@ -6,7 +6,7 @@
   'url': confluence.get('url', 'https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-' + confluence.version + '.tar.gz'),
   'url_hash': confluence.get('url_hash', 'https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-' + confluence.version + '.tar.gz.md5'),
   'pid': confluence.dir + '/home/confluence.pid',
-  'java_home': java.jre8.home,
+  'java_home': java[java.env].home,
   'dirs': {
     'scripts': confluence.dir + '/scripts',
     'home': confluence.dir + '/home',
