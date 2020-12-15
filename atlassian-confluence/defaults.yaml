@@ -14,4 +14,4 @@ atlassian-confluence:
   dir: /opt/atlassian/confluence
   group: confluence
   user: confluence
-  version: 7.9.3
+  version: 7.10.0
